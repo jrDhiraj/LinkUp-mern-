@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createContext, useContext, useState } from "react";
 import server from "../environment.js";
+import { useNavigate } from "react-router-dom"; // ✅ Fix: Import useNavigate from react-router-dom
 
 export const Authcontext = createContext({}); // ✅ Fix: Renamed to AuthContext
 
@@ -9,6 +10,7 @@ const client = axios.create({
 });
 
 export const AuthProvider = ({ children }) => {
+  let navigate = useNavigate();
   const [userData, setUserData] = useState(null);
 
   const handleRegister = async (name, username, password) => {
@@ -18,6 +20,7 @@ export const AuthProvider = ({ children }) => {
         username,
         password,
       });
+      console.log(request);
       if (request.status === 201) {
         return request.data.message;
       }
@@ -35,6 +38,8 @@ export const AuthProvider = ({ children }) => {
 
       if (request.status === 200) {
         localStorage.setItem("token", request.data.token); // Store token for future requests
+        navigate("/home")
+
       }
     } catch (error) {
       throw error;

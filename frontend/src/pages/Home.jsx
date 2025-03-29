@@ -5,15 +5,16 @@ import RestoreIcon from '@mui/icons-material/Restore';
 import { Button, IconButton } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { Authcontext } from '../context/Authcontext.jsx';
-import "../App.css";
+import './Home.css'; // Import your CSS file for styling
 
 function HomeComponent() {
     let navigate = useNavigate();
     const [meetingCode, setMeetingCode] = React.useState('');
+    const [code , setCode] = React.useState([])
 
-    const {addHistory} = useContext(Authcontext);
+    const { addHistory } = useContext(Authcontext);
 
-    let handleJoinVideoCall = async() => {
+    let handleJoinVideoCall = async () => {
         if (!meetingCode.trim()) {
             alert("Please enter a valid meeting code.");
             return;
@@ -22,27 +23,33 @@ function HomeComponent() {
         await addHistory(meetingCode);
         // Check if the meeting code is not empty before navigating
         navigate(`/${meetingCode}`);
-        
+
     };
 
-    
+    const generateMeetingCode = () => {
+        const Code = Math.floor(100000 + Math.random() * 900000);
+        console.log(Code);
+        setCode(Code.toString());
+    }
 
     return (
         <>
             {/* Navbar */}
             <div className="navbar">
-                <div className="navbar-logo">
+                <div className="navbar-logo" role='buttom' onClick={()=>{
+                    navigate('/')
+                }}>
                     <h3>LinkUp</h3>
                 </div>
                 <div className="navbar-actions">
-                   
-                    <IconButton title='History' onClick={ () =>{
+
+                    <IconButton title='History' onClick={() => {
                         console.log("clicked history")
                         navigate("/history");
                     }}>
                         <RestoreIcon className="history-icon" />
                     </IconButton>
-                    
+
                     <Button className="logout-button" onClick={() => {
                         localStorage.removeItem('token');
                         navigate("/auth");
@@ -60,7 +67,16 @@ function HomeComponent() {
                         Join high-quality video calls with just a code.
                         Enter your meeting code and start connecting instantly.
                     </p>
-
+                    <div className='input-container'>
+                        <TextField
+                            className="meeting-input"
+                           value={code}
+                            id="outlined-basic"
+                            label="Meeting Code"
+                            variant="outlined"
+                        />
+                        <Button className='join-button' variant="contained" onClick={generateMeetingCode}>Meeting code</Button>
+                    </div>
                     <div className="input-container">
                         <TextField
                             className="meeting-input"
@@ -70,6 +86,9 @@ function HomeComponent() {
                             variant="outlined"
                         />
                         <Button className="join-button" variant="contained" onClick={handleJoinVideoCall}>Join</Button>
+                        <Button className="join-button" variant="contained" onClick={() => {
+                            navigate("/");
+                        }}>Back</Button>
                     </div>
                 </div>
 

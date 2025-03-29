@@ -1,0 +1,185 @@
+/* HomeComponent.css */
+
+/* Base styles */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f8fafc;
+  }
+  
+  /* Navbar styles */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .navbar-logo h3 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #ff6b00;
+    margin: 0;
+  }
+  
+  .navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  
+  .history-icon {
+    color: #64748b;
+    transition: color 0.3s ease;
+  }
+  
+  .history-icon:hover {
+    color: #ff6b00;
+  }
+  
+  .logout-button {
+    color: #ef4444 !important;
+    border: 1px solid #ef4444 !important;
+    padding: 0.5rem 1rem !important;
+    text-transform: none !important;
+    font-weight: 500 !important;
+    transition: all 0.3s ease !important;
+  }
+  
+  .logout-button:hover {
+    background-color: #fee2e2 !important;
+  }
+  
+  /* Meeting container */
+  .meetContainer {
+    display: flex;
+    flex-grow: 1;
+    padding: 3rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 3rem;
+    align-items: center;
+  }
+  
+  .leftPanel {
+    flex: 1;
+  }
+  
+  .leftPanel h2 {
+    font-size: 2.2rem;
+    color: #1e293b;
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
+  }
+  
+  .description {
+    color: #64748b;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    max-width: 500px;
+  }
+  
+  .input-container {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    align-items: center;
+  }
+  
+  .meeting-input {
+    flex: 1;
+    max-width: 400px;
+  }
+  
+  .meeting-input .MuiOutlinedInput-root {
+    border-radius: 8px;
+  }
+  
+  .meeting-input .MuiInputLabel-root {
+    color: #64748b;
+  }
+  
+  .join-button {
+    background-color: #ff6b00 !important;
+    color: white !important;
+    padding: 0.8rem 2rem !important;
+    border-radius: 8px !important;
+    text-transform: none !important;
+    font-weight: 500 !important;
+    transition: background-color 0.3s ease !important;
+  }
+  
+  .join-button:hover {
+    background-color: #e65c00 !important;
+  }
+  
+  /* Right panel with image */
+  .rightPanel {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .rightPanel img {
+    max-width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: contain;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .meetContainer {
+      flex-direction: column;
+      padding: 2rem 1rem;
+      gap: 2rem;
+    }
+  
+    .leftPanel {
+      order: 2;
+      text-align: center;
+    }
+  
+    .description {
+      max-width: 100%;
+    }
+  
+    .input-container {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  
+    .meeting-input {
+      max-width: 100%;
+    }
+  
+    .join-button {
+      width: 100%;
+    }
+  
+    .rightPanel {
+      order: 1;
+    }
+  
+    .rightPanel img {
+      max-height: 300px;
+    }
+  
+    .navbar {
+      padding: 1rem;
+    }
+  }
+  
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .meetContainer {
+      padding: 2rem;
+    }
+  
+    .leftPanel h2 {
+      font-size: 1.8rem;
+    }
+  }

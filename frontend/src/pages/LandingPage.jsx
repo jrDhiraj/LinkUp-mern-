@@ -1,42 +1,69 @@
-import React from 'react'
-import '../App.css'
-import './LandingPage.css'
-import { Link, useNavigate } from "react-router-dom";
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaUserPlus, FaSignInAlt, FaUsers, FaGlobe } from 'react-icons/fa';
+import "./LandingPage.css";
 
-function LandingPage() {
-    const router = useNavigate();
+const LandingPage = () => {
+    const navigate = useNavigate();
 
-  return (
-    <div className='LandingPage-Container'>
-        <nav>
-            <div className="navHeader"><h1>Linkup</h1></div>
-            <div className="navList">
-                <p role='button' onClick={ ()=>{
-                    router('/gustadsf');
-                }}>Join as gust</p>
-                <p role='button' onClick={()=>{
-                    router('/auth');
-                }}>Register</p>
-                <div role='button' onClick={()=>{
-                    router('/auth');
-                }}><p>Login</p></div>
-                <p></p>
+    return (
+        <div className="app-container">
+            {/* Navbar */}
+            <nav className="navbar">
+                <h1 className="logo">Linkup</h1>
+                <div className="nav-buttons">
+                    <button className="nav-button guest-button" onClick={() => navigate('/guest')}>Join as Guest</button>
+                    <button className="nav-button register-button" onClick={() => navigate('/auth')}>Register</button>
+                    <button className="nav-button login-button" onClick={() => navigate('/auth')}>Login</button>
+                </div>
+            </nav>
+            
+            {/* Hero Section */}
+            <div className="hero-section">
+                <h1 className="hero-title">
+                    <span>Connect</span> with Your Loved Ones
+                </h1>
+                <h2 className="hero-subtitle">Bridge the distance with Linkup</h2>
+                <Link 
+                    to={localStorage.getItem('token') ? "/home" : "/auth"} 
+                    className="join-button"
+                >
+                    
+                    Join Now
+                </Link>
+
+                {
+                    console.log("token is this",localStorage.getItem('token'))
+                }
             </div>
-        </nav>
 
-        <div className="landingMainContainer">
-            <div className='landingMainHeader'>
-                <h1><span style={{color:"orange"}}>Connect</span> with our Loved one</h1>
-                <h2>Cover a distance by Linkup</h2>
-
-                <div role='button'>
-                    {localStorage.getItem('token') ? <Link to={"/home"}>Join Now</Link> : <Link to={"/auth"}>Join Now</Link>}
-                    {/* <Link to={"/auth"}>Get Started</Link> */}
+            {/* Features Section */}
+            <div className="features-section">
+                <div className="features-grid">
+                    <div className="feature-card">
+                        <FaUsers className="feature-icon icon-blue" />
+                        <h3 className="feature-title">Meet New People</h3>
+                        <p className="feature-description">Expand your network and make new connections easily.</p>
+                    </div>
+                    <div className="feature-card">
+                        <FaGlobe className="feature-icon icon-green" />
+                        <h3 className="feature-title">Global Access</h3>
+                        <p className="feature-description">Connect with friends and family from anywhere in the world.</p>
+                    </div>
+                    <div className="feature-card">
+                        <FaUserPlus className="feature-icon icon-red" />
+                        <h3 className="feature-title">Easy Sign Up</h3>
+                        <p className="feature-description">Register in just a few clicks and start chatting instantly.</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-  )
-}
 
-export default LandingPage
+            {/* Footer */}
+            <footer className="footer">
+                <p>&copy; 2025 Linkup. All rights reserved.</p>
+            </footer>
+        </div>
+    );
+};
+
+export default LandingPage;
