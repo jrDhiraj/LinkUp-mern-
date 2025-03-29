@@ -1,9 +1,8 @@
 import axios from "axios";
 import { createContext, useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
-export const Authcontext = createContext({});
 import server from "../environment.js";
 
+export const AuthContext = createContext({}); // ✅ Fix: Renamed to AuthContext
 
 const client = axios.create({
   baseURL: `${server}/api/v1/users`,
@@ -42,41 +41,36 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-
-  const getUserHistory= async() =>{
+  const getUserHistory = async () => {
     try {
       let request = await client.get("/get_all_activity", {
         params: {
-          token: localStorage.getItem("token")
-        }
-      })
-        return request.data.meeting;
+          token: localStorage.getItem("token"),
+        },
+      });
+      return request.data.meeting;
     } catch (error) {
       console.log(`message: ${error.message}`);
-      console.log("error in getuserHistory")  
+      console.log("error in getUserHistory");
     }
+  };
 
-  }
-
-  const navigate = useNavigate();
-
-  const addHistory = async (meetingCode)=>{
+  const addHistory = async (meetingCode) => {
     try {
       let request = await client.post("/add_to_activity", {
         token: localStorage.getItem("token"),
-        meetingCcode: meetingCode
-      })
-      return request
+        meetingCode: meetingCode, // ✅ Fix: Correct key name
+      });
+      return request;
     } catch (error) {
       console.log(`message: ${error.message}`);
-      console.log("error in addHistory")
-      
+      console.log("error in addHistory");
     }
-  }
+  };
 
   return (
-    <Authcontext.Provider value={{ handleRegister, handleLogin , getUserHistory, addHistory}}>
+    <AuthContext.Provider value={{ handleRegister, handleLogin, getUserHistory, addHistory }}>
       {children}
-    </Authcontext.Provider>
+    </AuthContext.Provider>
   );
 };
