@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import RestoreIcon from '@mui/icons-material/Restore';
 import { Button, IconButton } from '@mui/material';
 import TextField from '@mui/material/TextField';
-import { Authcontext } from '../context/AuthContext.js';
+import { Authcontext } from '../context/Authcontext.jsx';
 import "../App.css";
 
 function HomeComponent() {

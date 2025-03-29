@@ -10,7 +10,7 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Authcontext } from '../context/AuthContext.js';
+import { Authcontext } from '../context/Authcontext.jsx';
 import { Snackbar } from '@mui/material';
 
 const defaultTheme = createTheme();

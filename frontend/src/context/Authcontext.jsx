@@ -2,7 +2,7 @@ import axios from "axios";
 import { createContext, useContext, useState } from "react";
 import server from "../environment.js";
 
-export const AuthContext = createContext({}); // ✅ Fix: Renamed to AuthContext
+export const Authcontext = createContext({}); // ✅ Fix: Renamed to AuthContext
 
 const client = axios.create({
   baseURL: `${server}/api/v1/users`,
@@ -69,8 +69,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ handleRegister, handleLogin, getUserHistory, addHistory }}>
+    <Authcontext.Provider value={{ handleRegister, handleLogin, getUserHistory, addHistory }}>
       {children}
-    </AuthContext.Provider>
+    </Authcontext.Provider>
   );
 };

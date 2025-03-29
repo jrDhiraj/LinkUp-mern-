@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
+import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { Authcontext } from "../context/AuthContext.js";
+import { Authcontext } from "../context/Authcontext.jsx";
 import { IconButton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
