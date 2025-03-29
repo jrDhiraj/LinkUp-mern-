@@ -34,7 +34,7 @@ const login = async (req, res) => {
 
       // Save the user document
       await user.save();
-
+      console.log(user)
       return res.status(httpStatus.OK).json({ token, user });
 
   } catch (error) {
@@ -47,8 +47,13 @@ const login = async (req, res) => {
 const register = async (req, res) => {
     const { name, username, password } = req.body;
 
+
+
   try {
     const existingUser = await User.findOne({ username });
+
+    console.log(existingUser);
+
     if (existingUser) {
       return res
         .status(httpStatus.FOUND)
@@ -61,43 +66,53 @@ const register = async (req, res) => {
       password: hashesPassword,
     });
     await newUser.save();
+    console.log(newUser);
 
     res.status(httpStatus.CREATED).json({ message: "User Register" });
   } catch (error) {
     res.json({ message: `Something went wrong ${error}` });
   }
 };
-
-const getUserHistory = async(req , res) =>{
-  const token = req.query;
+const getUserHistory = async(req, res) => {
+  const token = req.query.token;  // ✅ Extract token properly
   try {
-    const user = await User.findOne({token:token});
-    const meeting = await Meeting.find({user_id:user.username});
-    res.json({meeting});
+    const user = await User.findOne({ token: token });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const meeting = await Meeting.find({ user_id: user.username });
+    res.json({ meeting });
   } catch (error) {
     console.log(`message: ${error.message}`);
-    console.log("error in getuserHistory")
+    console.log("error in getUserHistory");
+    res.status(500).json({ message: "Internal Server Error" });
   }
-}
+};
 
-const addHistory = async(req, res) =>{
-  const {token , meetingCcode } = req.body;
+const addHistory = async(req, res) => {
+  const { token, meetingCode } = req.body;  // ✅ Corrected variable name
 
   try {
-    const user = await User.findOne({token:token});
+    const user = await User.findOne({ token: token });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
 
     const newMeeting = new Meeting({
       user_id: user.username,
-      meetingCode: meetingCcode,
+      meetingCode: meetingCode,  // ✅ Corrected variable name
       date: new Date(),  
-    })
+    });
+
     await newMeeting.save();
-    res.status(httpStatus.CREATED).json({message:"new Meeting Created"});
+    res.status(201).json({ message: "New meeting created successfully" });
 
   } catch (error) {
     console.log(`message: ${error.message}`);
-    console.log("error in addHistory")
-    
+    console.log("error in addHistory");
+    res.status(500).json({ message: "Internal Server Error" });
   }
-}
+};
+
 export {login , register, getUserHistory, addHistory};
