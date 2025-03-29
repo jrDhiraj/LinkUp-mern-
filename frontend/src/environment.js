@@ -1,5 +1,3 @@
 let IS_PROD = true;
-const server ="http://localhost:3001"
-
-
+const server = IS_PROD ? "https://linkupbackend-rmxh.onrender.com/" : "http://localhost:3001/";
 export default server;
